@@ -1,1 +1,41 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  font-family: Arial, Calibri, sans-serif;
+  background-image: url('https://www.desktopbackground.org/download/320x480/2014/07/18/795375_question-mark-hd-wallpapers-hd-images-new_1920x1680_h.jpg');
+  color: #686868;
+}
+
+h1 {
+  margin: 0 0 30px 0;
+}
+
+p {
+  margin: 0 0 15px 0;
+}
+
+.page {
+  background: #fff;
+  box-shadow: 14px 13px 12px rgba(0,0,0,0.1);
+  margin: 0 auto;
+  padding: 55px 35px;
+  max-width: 600px;
+  position: relative;
+}
+
+.btn {
+  color: #fff;
+  background-color: #007600;
+  border: 0;
+  cursor: pointer;
+  padding: 10px 30px;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 250ms;
+}
+
+.btn:hover {
+  background-color: #005600;
+}
+
+.txt-centered {
+  text-align: center;
+}

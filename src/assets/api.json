@@ -1,0 +1,41 @@
+{
+  "response_code": 0,
+  "results": [
+    {
+      "category": "Sports",
+      "type": "multiple",
+      "difficulty": "hard",
+      "question": "What tool lends it&#039;s name to a last-stone advantage in an end in Curling?",
+      "correct_answer": "Hammer",
+      "incorrect_answers": [
+        "Wrench",
+        "Drill",
+        "Screwdriver"
+      ]
+    },
+    {
+      "category": "Entertainment: Television",
+      "type": "multiple",
+      "difficulty": "medium",
+      "question": "Which of the following Autobot names in Michael Bay&#039;s movies was NOT a name for a Transformer in the original 1980&#039;s cartoon?",
+      "correct_answer": "Mudflap",
+      "incorrect_answers": [
+        "Skids",
+        "Sideswipe",
+        "Ratchet"
+      ]
+    },
+    {
+      "category": "Entertainment: Video Games",
+      "type": "multiple",
+      "difficulty": "easy",
+      "question": "In the game &quot;Hearthstone&quot;, what is the best rank possible?",
+      "correct_answer": "Rank 1 Legend",
+      "incorrect_answers": [
+        "Rank 1 Elite",
+        "Rank 1 Master",
+        "Rank 1 Supreme"
+      ]
+    }
+  ]
+}

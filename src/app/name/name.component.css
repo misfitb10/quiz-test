@@ -1,0 +1,14 @@
+.input--text {
+  padding: 10px 20px;
+  margin: 0 0 15px 0;
+  min-width: 50%;
+}
+
+.btn--startQuiz {
+  min-width: 25%;
+  padding: 10px 15px;
+}
+
+.form--startQuiz {
+  text-align: center;
+}
