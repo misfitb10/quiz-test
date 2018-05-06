@@ -1,4 +1,9 @@
-.input--text {
+.form__label {
+  display: block;
+  margin: 0 0 15px 0;
+}
+
+.form__input {
   padding: 10px 20px;
   margin: 0 0 15px 0;
   min-width: 50%;

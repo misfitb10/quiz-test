@@ -3,7 +3,8 @@
     <h1>Fill in your name to get started man!</h1>
 
     <form class="form form--startQuiz">
-      <input class="input--text" type="text" #name />
+      <label class="form__label" for="name">your name</label>
+      <input id="name" class="form__input" type="text" #name />
       <br/>
       <button class="btn btn--startQuiz" (click)="submitName(name.value)" routerLink="/quiz">start quizzzz</button>
     </form>
