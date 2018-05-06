@@ -20,6 +20,10 @@
   background-color: red;
 }
 
+.labels {
+  margin: 0 0 15px 0;
+}
+
 .label {
   display: inline-block;
   padding: 3px 5px;
@@ -33,6 +37,10 @@
 
 .label--difficulty {
   background-color: rgb(252, 222, 222);
+}
+
+.questionsAmount {
+  margin: 0 0 5px 0;
 }
 
 ul.answersList {

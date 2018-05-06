@@ -3,8 +3,8 @@
     <strong>
       Hola<ng-container *ngIf="nameQuizzer"> {{nameQuizzer}}</ng-container>!
 
-      <ng-container *ngIf="questionsLeft !== 0">
-        You just need to answer {{questionsLeft}} question<ng-container *ngIf="questionsLeft > 1">s</ng-container>, ok?
+      <ng-container *ngIf="questionsAmount > 0">
+        You just need to answer {{questionsAmount}} question<ng-container *ngIf="questionsAmount > 1">s</ng-container>, ok?
       </ng-container>
     </strong>
   </p>
@@ -19,13 +19,12 @@
                [ngClass]="{'hidden': (i !== 0)}"
                class="question">
 
-        <p>Question {{i+1}} of {{questionsAmount}}</p>
-
         <div class="labels">
           <span class="label label--category">Category: {{question.category}}</span>
           <span class="label label--difficulty">Difficulty: {{question.difficulty}}</span>
         </div>
 
+        <p class="questionsAmount">Question {{i+1}} of {{questionsAmount}}</p>
         <h2 [innerHTML]="question.question"></h2>
 
         <ul class="answersList">
@@ -35,9 +34,9 @@
                       type="checkbox"
                       id="answer{{answer | slice:1:3}}{{x}}"
                       #answerinput
-                      (change)="changedCheckbox($event, answerinput.value, answerinput.checked, question.correct_answer)"
+                      (change)="changedCheckbox(answerinput.value, answerinput.checked, question.correct_answer)"
                       value="{{answer}}" />
-              <label for="answer{{answer | slice:1:3}}{{x}}">{{answer}}</label>
+              <label for="answer{{answer | slice:1:3}}{{x}}" [innerHTML]="answer"></label>
             </li>
           </ng-container>
         </ul>
@@ -47,14 +46,13 @@
         </ng-container>
 
         <ng-container *ngIf="answerChecked && !lastItem || !lastItem && count === 0">
-          <a href="#" class="btn btn--nextQuestion" (click)="nextQuestion($event, userAnswerValue, correctAnswer)">Next »</a>
+          <a href="#" class="btn btn--nextQuestion" (click)="nextQuestion($event, userAnswerValue)">Next »</a>
         </ng-container>
 
         <ng-container *ngIf="answerChecked && lastItem || lastItem && count == 0">
           <div class="showResults txt-centered">
             <p>Hey man, you've made it. Let's see the results.</p>
-            <a href="#" class="btn" (click)="showResults($event, userAnswerValue, correctAnswer)" routerLink="/results">Show results</a>
-            <!--<a href="#" class="btn" (click)="showResults($event, userAnswerValue, correctAnswer)">Show results</a>-->
+            <a href="#" class="btn" (click)="showResults($event, userAnswerValue)" routerLink="/results">Show results</a>
           </div>
         </ng-container>
       </article>

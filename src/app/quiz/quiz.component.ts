@@ -24,19 +24,20 @@ export class QuizComponent implements OnInit {
   answeredAmount = 0;
   userAnswers = [];
   correctAnswers = [];
-  correctAnswer = '';
+  correctAnswer: string;
   correctAnswersAmount = 0;
   incorrectAnswersAmount = 0;
   invalidAnswersAmount = 0;
 
   // Time stuff
   countDown;
-  count = 5;
+  initialCount = 30;
+  count = this.initialCount;
 
   constructor(private quizService: QuizService) {}
 
   countDownTimer(reset) {
-    if (reset) { this.count = 5; }
+    if (reset) { this.count = this.initialCount; }
 
     this.countDown = timer(0, 1000).pipe(
       take(this.count),
@@ -44,14 +45,14 @@ export class QuizComponent implements OnInit {
     );
   }
 
-  nextQuestion(event, answer, correctAnswer) {
+  nextQuestion(event, answer) {
     event.preventDefault();
 
     // Reset time
     this.countDownTimer(true);
 
     // Check if answer is (in)correct
-    this.checkAnswer(answer, correctAnswer);
+    this.checkAnswer(answer);
 
     // Put the answer checkbox (checked) back to false
     this.answerChecked = false;
@@ -59,26 +60,27 @@ export class QuizComponent implements OnInit {
     // Go to the next question
     const parentEl = event.target.parentElement;
     const nextSibling = parentEl.nextSibling;
+    const hiddenClass = 'hidden';
 
-    parentEl.classList.add('hidden');
+    parentEl.classList.add(hiddenClass);
 
     if (nextSibling !== 'undefined') {
-      nextSibling.classList.remove('hidden');
+      nextSibling.classList.remove(hiddenClass);
     }
 
     console.log('this.userData', this.userData);
   }
 
-  changedCheckbox(event, answer, answerChecked, correctAnswer) {
+  changedCheckbox(answer, answerChecked, correctAnswer) {
     this.userAnswerValue = answer;
     this.answerChecked = answerChecked;
     this.correctAnswer = correctAnswer;
   }
 
-  checkAnswer(answer, correctAnswer) {
+  checkAnswer(answer) {
     // If checkbox is checked
     if (this.answerChecked) {
-      answer === correctAnswer ? ++this.correctAnswersAmount : ++this.incorrectAnswersAmount;
+      answer === this.correctAnswer ? ++this.correctAnswersAmount : ++this.incorrectAnswersAmount;
 
       this.userData = {
         answered: ++this.answeredAmount,
@@ -131,10 +133,10 @@ export class QuizComponent implements OnInit {
     });
   }
 
-  showResults(event, answer, correctAnswer) {
+  showResults(event, answer) {
     event.preventDefault();
 
-    this.checkAnswer(answer, correctAnswer);
+    this.checkAnswer(answer);
     console.log('this.userData', this.userData);
   }
 
