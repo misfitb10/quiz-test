@@ -1,16 +1,22 @@
 <div class="page">
   <section class="results">
     <h1>WOOOHOOOOO</h1>
-    <p><strong>JE HEBT ALLE VRAGEN GOED: 3/3, 100%!!!</strong></p>
+    <p>You answered {{questionAnsweredAmount}} out of xxx questions</p>
+    <p>
+      <strong>Your score: </strong>
+      <br/>
+        <ng-container *ngIf="correctAnswers">Correct answers: {{correctAnswers}} <br/></ng-container>
+        <ng-container *ngIf="incorrectAnswers">Incorrect answers: {{incorrectAnswers}} <br/></ng-container>
+        <ng-container *ngIf="invalidAnswers">Invalid answers (didn't answer): {{invalidAnswers}}</ng-container>
+    </p>
 
-    <img class="resultImage" alt="dance baby" src="https://media.giphy.com/media/YEaQWIJRg6dTa/giphy.gif" />
+    <ng-container *ngIf="perfectScore">
+      <img class="resultImage" alt="oh yeah baby" src="https://media.giphy.com/media/YEaQWIJRg6dTa/giphy.gif" />
+    </ng-container>
 
-    <!--
-        Misschien results van meerdere quizjes achter elkaar van dezelfde persoon?
-        Quiz 1: 3/3 goed
-        Quiz 2: 2/3 goed
-        ..
-    -->
+    <ng-container *ngIf="badScore">
+      <img class="resultImage" alt="crying because the score is SO low" src="https://i.giphy.com/k61nOBRRBMxva.gif" />
+    </ng-container>
 
     <a href="#" class="btn btn--startQuiz" (click)="newQuiz($event)" routerLink="/quiz">start new quiz »</a>
   </section>
