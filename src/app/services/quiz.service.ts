@@ -5,8 +5,10 @@ import {ApiConfig} from '../models/apiConfig';
 
 @Injectable()
 export class QuizService {
-  // apiUrl = 'https://opentdb.com/api.php?amount=3&category=21&type=multiple';
-  apiUrl = 'assets/api.json';
+  apiUrl = 'https://opentdb.com/api.php?amount=3&category=21&type=multiple';
+
+  // TODO: Make local/prod environment settings
+  // apiUrl = 'assets/api.json';
 
   constructor(private http: HttpClient) { }
 
