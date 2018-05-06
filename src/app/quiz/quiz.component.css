@@ -41,6 +41,9 @@
 
 .questionsAmount {
   margin: 0 0 5px 0;
+  color: #848383;
+  font-size: 14px;
+  font-weight: bold;
 }
 
 ul.answersList {
