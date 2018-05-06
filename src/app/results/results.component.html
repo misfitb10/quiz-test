@@ -1,23 +1,34 @@
 <div class="page">
   <section class="results">
-    <h1>WOOOHOOOOO</h1>
-    <p>You answered {{questionAnsweredAmount}} out of xxx questions</p>
+    <h1>Statistics</h1>
     <p>
-      <strong>Your score: </strong>
+      {{percentageScore | number: '0.1-1'}}/100% correct
       <br/>
         <ng-container *ngIf="correctAnswers">Correct answers: {{correctAnswers}} <br/></ng-container>
         <ng-container *ngIf="incorrectAnswers">Incorrect answers: {{incorrectAnswers}} <br/></ng-container>
-        <ng-container *ngIf="invalidAnswers">Invalid answers (didn't answer): {{invalidAnswers}}</ng-container>
+        <ng-container *ngIf="invalidAnswers">Invalid answers*: {{invalidAnswers}}</ng-container>
     </p>
 
+    <ng-container *ngIf="invalidAnswers">
+      <p>*Invalid answers are answers which you haven't answered.</p>
+    </ng-container>
+
     <ng-container *ngIf="perfectScore">
+      <br/>
+      <p>Your score is so perfect, you should:</p>
       <img class="resultImage" alt="oh yeah baby" src="https://media.giphy.com/media/YEaQWIJRg6dTa/giphy.gif" />
     </ng-container>
 
     <ng-container *ngIf="badScore">
+      <br/>
+      <p>God damn, your score is so bad, you need to:</p>
       <img class="resultImage" alt="crying because the score is SO low" src="https://i.giphy.com/k61nOBRRBMxva.gif" />
     </ng-container>
 
-    <a href="#" class="btn btn--startQuiz" (click)="newQuiz($event)" routerLink="/quiz">start new quiz »</a>
+    <br/>
+
+    <footer>
+      <a href="#" class="btn btn--startQuiz" (click)="newQuiz($event)" routerLink="/quiz">start new quiz »</a>
+    </footer>
   </section>
 </div>

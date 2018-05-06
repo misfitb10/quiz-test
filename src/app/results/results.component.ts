@@ -15,6 +15,8 @@ export class ResultsComponent implements OnInit {
   invalidAnswers = this.parsedData.answers_invalid;
   perfectScore: boolean;
   badScore: boolean;
+  percentageScore: number;
+  totalQuestions = 3;
 
   constructor() { }
 
@@ -28,6 +30,8 @@ export class ResultsComponent implements OnInit {
     } else if (this.correctAnswers < 2) {
       this.badScore = true;
     }
+
+    this.percentageScore = this.correctAnswers / this.totalQuestions * 100;
   }
 
   resetData() {
