@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
+import {catchError} from 'rxjs/operators';
+import {ErrorObservable} from 'rxjs/observable/ErrorObservable';
 import {ApiConfig} from '../models/apiConfig';
 
 @Injectable()
@@ -13,7 +15,13 @@ export class QuizService {
   constructor(private http: HttpClient) { }
 
   getQuestionsAPI(): Observable<any> {
-    return this.http.get<ApiConfig>(this.apiUrl);
+    return this.http.get<ApiConfig>(this.apiUrl).pipe(catchError(this._errorHandler));
+  }
+
+  private _errorHandler(error: HttpErrorResponse) {
+    return new ErrorObservable(
+      `The following went wrong: ${error.message}`
+    );
   }
 
   // Mock data (temp)

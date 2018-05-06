@@ -29,6 +29,8 @@ export class QuizComponent implements OnInit {
   incorrectAnswersAmount = 0;
   invalidAnswersAmount = 0;
 
+  error = null;
+
   // Time stuff
   countDown;
   initialCount = 30;
@@ -118,19 +120,22 @@ export class QuizComponent implements OnInit {
   }
 
   getQuestions() {
-    this.quizService.getQuestionsAPI().subscribe(questions => {
-      this.questions = questions.results;
+    this.quizService.getQuestionsAPI().subscribe(
+      questions => {
+        this.questions = questions.results;
 
-      let allAnswers: string[];
-      const allQuestions = this.questions;
-      for (const i of allQuestions) {
-        this.correctAnswers = [i.correct_answer];
-        const incorrectAnswers = i.incorrect_answers;
-        allAnswers = this.shuffle([...this.correctAnswers, ...incorrectAnswers]);
-        this.answers = {'allAnswers': allAnswers};
-        i.allAnswers = allAnswers;
-      }
-    });
+        let allAnswers: string[];
+        const allQuestions = this.questions;
+        for (const i of allQuestions) {
+          this.correctAnswers = [i.correct_answer];
+          const incorrectAnswers = i.incorrect_answers;
+          allAnswers = this.shuffle([...this.correctAnswers, ...incorrectAnswers]);
+          this.answers = {'allAnswers': allAnswers};
+          i.allAnswers = allAnswers;
+        }
+      },
+      error => this.error = error
+    );
   }
 
   showResults(event, answer) {
