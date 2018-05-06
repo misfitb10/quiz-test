@@ -1,74 +1,71 @@
 <div class="page">
   <p>
     <strong>
-      Hola<span *ngIf="nameQuizzer"> {{nameQuizzer}}</span>!
+      Hola<ng-container *ngIf="nameQuizzer"> {{nameQuizzer}}</ng-container>!
 
-      <span *ngIf="questionsLeft !== 0">
-        You just need to answer {{questionsLeft}} question<span *ngIf="questionsLeft > 1">s</span>, ok?
-      </span>
+      <ng-container *ngIf="questionsLeft !== 0">
+        You just need to answer {{questionsLeft}} question<ng-container *ngIf="questionsLeft > 1">s</ng-container>, ok?
+      </ng-container>
     </strong>
   </p>
 
-  <section class="questions" *ngIf="questionsAmount > 0">
+  <ng-container *ngIf="questionsAmount > 0">
+    <section class="questions">
+      <div class="timer" [ngClass]="{'warning': (count <= 3)}">Time left: <span class="time-left">{{countDown | async}}</span> sec</div>
 
-    <div class="timer">Time left: <span class="time-left">{{countDown | async}}</span> sec</div>
+      <article *ngFor="let question of questions; let i = index; let firstItem = first; let lastItem = last"
+               [class.firstQuestion]="firstItem"
+               [class.lastQuestion]="lastItem"
+               [ngClass]="{'hidden': (i !== 0)}"
+               class="question">
 
-    <article *ngFor="let result of questions; let i = index; let firstItem = first; let lastItem = last"
-             [class.firstQuestion]="firstItem"
-             [class.lastQuestion]="lastItem"
-             [ngClass]="{'hidden': (i != 0)}"
-             class="question">
+        <p>Question {{i+1}} of {{questionsAmount}}</p>
 
-      <p>Question {{i+1}} of {{questionsAmount}}</p>
+        <div class="labels">
+          <span class="label label--category">Category: {{question.category}}</span>
+          <span class="label label--difficulty">Difficulty: {{question.difficulty}}</span>
+        </div>
 
-      <div class="labels">
-        <span class="label label--category">Category: {{result.category}}</span>
-        <span class="label label--difficulty">Difficulty: {{result.difficulty}}</span>
-      </div>
+        <h2 [innerHTML]="question.question"></h2>
 
-      <h2>{{result.question}}</h2>
-      <ul class="answersList">
+        <ul class="answersList">
+          <ng-container *ngFor="let answer of question.allAnswers; let x = index">
+            <li>
+              <input  [disabled] = "count === 0 ? 'true' : null"
+                      type="checkbox"
+                      id="answer{{answer | slice:1:3}}{{x}}"
+                      #answerinput
+                      (change)="changedCheckbox($event, answerinput.value, answerinput.checked, question.correct_answer)"
+                      value="{{answer}}" />
+              <label for="answer{{answer | slice:1:3}}{{x}}">{{answer}}</label>
+            </li>
+          </ng-container>
+        </ul>
 
-        <li>
-          <input  [attr.disabled] = "count === 0 ? 'disabled' : null"
-                  #answer [checked]="result.correct_answer.checked"
-                  (change)="changedCheckbox($event)"
-                  id="answer{{i+1}}"
-                  type="checkbox"
-                  value="{{result.correct_answer}}">
-          <label for="answer{{i+1}}">{{result.correct_answer}}</label>
-        </li>
+        <ng-container *ngIf="answerChecked && userAnswerValue === question.correct_answer && count === 0">
+          <p>LEKKER BEZIG JONGE!</p>
+        </ng-container>
 
-        <!-- TODO: Deze coño incorrects moeten samen in de corrects en dan shuffle wuffle baby -->
-        <!--<li *ngFor="let incorrects of result.incorrect_answers">-->
-          <!--<input #answer [checked]="result.correct_answer.checked"-->
-                 <!--(change)="changedCheckbox($event)"-->
-                 <!--type="checkbox" value="{{incorrects}}">-->
-          <!--<label>{{incorrects}}</label>-->
-        <!--</li>-->
+        <ng-container *ngIf="answerChecked && !lastItem || !lastItem && count === 0">
+          <a href="#" class="btn btn--nextQuestion" (click)="nextQuestion($event, userAnswerValue, correctAnswer)">Next »</a>
+        </ng-container>
 
-        <!--<p>// TODO: fixen, want nu krijg je alleen 1 antwoord van de allerlaatste item in de array:</p>-->
-        <!--<li *ngFor="let answer of answers">-->
-          <!--<input type="checkbox" value="{{answer}}" />-->
-          <!--<label>{{answer}}</label>-->
-        <!--</li>-->
-      </ul>
-
-      <!-- Als answer correct is, dan `Bravo! en anders LLOL, FOUT!! -->
-      <!--Bravo!-->
-      <a href="#" *ngIf="answer.checked && !lastItem || !lastItem && count == 0" class="btn btn--nextQuestion" (click)="nextQuestion($event, answer.value)">Next »</a>
-
-      <div class="showResults txt-centered" *ngIf="answer.checked && lastItem || lastItem && count == 0">
-        <p>Hey man, you've made it. Let's see the results.</p>
-        <a href="#" class="btn" (click)="showResults($event)" routerLink="/results">Show results</a>
-      </div>
-    </article>
-  </section>
+        <ng-container *ngIf="answerChecked && lastItem || lastItem && count == 0">
+          <div class="showResults txt-centered">
+            <p>Hey man, you've made it. Let's see the results.</p>
+            <a href="#" class="btn" (click)="showResults($event, userAnswerValue, correctAnswer)" routerLink="/results">Show results</a>
+            <!--<a href="#" class="btn" (click)="showResults($event, userAnswerValue, correctAnswer)">Show results</a>-->
+          </div>
+        </ng-container>
+      </article>
+    </section>
+  </ng-container>
 
   <div class="questions questions--error" *ngIf="questionsAmount === 0">
     <h1>Damn, we don't have any questions right now. Sorry!</h1>
   </div>
 </div>
+
 
 <!-- TODO: Easter eggy -->
 <!--<a href="#" (click)="showEaster($event)">-->
