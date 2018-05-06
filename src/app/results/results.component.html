@@ -1,34 +1,36 @@
 <div class="page">
   <section class="results">
-    <h1>Statistics</h1>
-    <p>
-      {{percentageScore | number: '0.1-1'}}/100% correct
+    <article>
+      <h1>Statistics</h1>
+      <p>
+        {{percentageScore | number: '1.0-0'}}% correct
+        <br/>
+          <ng-container *ngIf="correctAnswers">Correct answers: {{correctAnswers}} <br/></ng-container>
+          <ng-container *ngIf="incorrectAnswers">Incorrect answers: {{incorrectAnswers}} <br/></ng-container>
+          <ng-container *ngIf="invalidAnswers">Invalid answers*: {{invalidAnswers}}</ng-container>
+      </p>
+
+      <ng-container *ngIf="invalidAnswers">
+        <p>*Invalid answers are answers which you haven't answered.</p>
+      </ng-container>
+
+      <ng-container *ngIf="perfectScore">
+        <br/>
+        <p>Your score is so perfect, you should</p>
+        <img class="resultImage" alt="oh yeah baby" src="https://media.giphy.com/media/YEaQWIJRg6dTa/giphy.gif" />
+      </ng-container>
+
+      <ng-container *ngIf="badScore">
+        <br/>
+        <p>God damn, your score is so bad, you really should just...</p>
+        <img class="resultImage" alt="crying because the score is SO low" src="https://i.giphy.com/k61nOBRRBMxva.gif" />
+      </ng-container>
+
       <br/>
-        <ng-container *ngIf="correctAnswers">Correct answers: {{correctAnswers}} <br/></ng-container>
-        <ng-container *ngIf="incorrectAnswers">Incorrect answers: {{incorrectAnswers}} <br/></ng-container>
-        <ng-container *ngIf="invalidAnswers">Invalid answers*: {{invalidAnswers}}</ng-container>
-    </p>
 
-    <ng-container *ngIf="invalidAnswers">
-      <p>*Invalid answers are answers which you haven't answered.</p>
-    </ng-container>
-
-    <ng-container *ngIf="perfectScore">
-      <br/>
-      <p>Your score is so perfect, you should:</p>
-      <img class="resultImage" alt="oh yeah baby" src="https://media.giphy.com/media/YEaQWIJRg6dTa/giphy.gif" />
-    </ng-container>
-
-    <ng-container *ngIf="badScore">
-      <br/>
-      <p>God damn, your score is so bad, you need to:</p>
-      <img class="resultImage" alt="crying because the score is SO low" src="https://i.giphy.com/k61nOBRRBMxva.gif" />
-    </ng-container>
-
-    <br/>
-
-    <footer>
-      <a href="#" class="btn btn--startQuiz" (click)="newQuiz($event)" routerLink="/quiz">start new quiz »</a>
-    </footer>
+      <footer>
+        <a href="#" class="btn btn--startQuiz" (click)="newQuiz($event)" routerLink="/quiz">start new quiz »</a>
+      </footer>
+    </article>
   </section>
 </div>
