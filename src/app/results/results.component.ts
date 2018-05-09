@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-results',
@@ -18,7 +19,7 @@ export class ResultsComponent implements OnInit {
   percentageScore: number;
   totalQuestions = 3;
 
-  constructor() { }
+  constructor(private _router: Router) { }
 
   ngOnInit() {
     this.calculateScore();
@@ -36,6 +37,14 @@ export class ResultsComponent implements OnInit {
 
   resetData() {
     localStorage.removeItem('userData');
+  }
+
+  secretShit(inputValue) {
+    if (inputValue === 'RESET ALL') {
+      localStorage.removeItem('userData');
+      sessionStorage.removeItem('name');
+      this._router.navigate(['/']);
+    }
   }
 
   newQuiz(event) {
