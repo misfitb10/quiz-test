@@ -15,7 +15,6 @@ export class QuizComponent implements OnInit {
   questionsAmount = this.quizService.getMockData().results.length;
   nameQuizzer: string = sessionStorage.getItem('name') || null;
   answerChecked: boolean;
-  userAnswerValue: string;
   answers: {};
   questionsLeft = this.questionsAmount;
 
@@ -23,12 +22,14 @@ export class QuizComponent implements OnInit {
   userData = {};
   answeredAmount = 0;
   userAnswers = [];
+  userAnswerValue: string;
   correctAnswers = [];
   correctAnswer: string;
   correctAnswersAmount = 0;
   incorrectAnswersAmount = 0;
   invalidAnswersAmount = 0;
 
+  // Error
   error = null;
 
   // Time stuff
@@ -73,9 +74,9 @@ export class QuizComponent implements OnInit {
     console.log('this.userData', this.userData);
   }
 
-  changedCheckbox(answer, answerChecked, correctAnswer) {
-    this.userAnswerValue = answer;
-    this.answerChecked = answerChecked;
+  changedCheckbox(event, correctAnswer) {
+    this.userAnswerValue = event.target.value;
+    this.answerChecked = event.target.checked;
     this.correctAnswer = correctAnswer;
   }
 

@@ -1,18 +1,24 @@
 <div class="page">
-  <div *ngIf="nameQuizzer.length === 0">
-    <h1>Fill in your name to get started man!</h1>
+  <section *ngIf="nameQuizzer.length === 0">
+    <article>
+      <h1>Fill in your name to get started man!</h1>
 
-    <form class="form form--startQuiz">
-      <label class="form__label" for="name">your name</label>
-      <input id="name" class="form__input" type="text" #name />
-      <br/>
-      <button class="btn btn--startQuiz" (click)="submitName(name.value)" routerLink="/quiz">start quizzzz</button>
-    </form>
-  </div>
+      <form class="form form__startQuiz">
+        <label class="form__label" for="name">your name</label>
+        <input id="name" class="form__input" type="text" #name />
 
-  <div *ngIf="nameQuizzer.length > 0" class="txt-centered">
-    <h1>Name?</h1>
-    <p>Your name is {{nameQuizzer}}. Can't change it no more!</p>
-    <a href="#" class="btn btn--startQuiz" routerLink="/quiz">start quizzzz</a>
-  </div>
+        <br/>
+
+        <button class="btn btn--startQuiz" (click)="submitName(name.value)" routerLink="/quiz">start quizzzz</button>
+      </form>
+    </article>
+  </section>
+
+  <section *ngIf="nameQuizzer.length > 0" class="txt-centered">
+    <article>
+      <h1>Name?</h1>
+      <p>Your name is {{nameQuizzer}}. Can't change it no more!</p>
+      <a href="#" class="btn btn--startQuiz" routerLink="/quiz">start quizzzz</a>
+    </article>
+  </section>
 </div>
