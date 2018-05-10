@@ -11,9 +11,9 @@ import { take, map } from 'rxjs/operators';
 })
 
 export class QuizComponent implements OnInit {
-  questions: any[];
-  questionsAmount = this.quizService.getMockData().results.length;
   nameQuizzer: string = sessionStorage.getItem('name') || null;
+  questions: any[];
+  questionsAmount: number;
   answerChecked: boolean;
   answers: {};
   questionsLeft = this.questionsAmount;
@@ -124,6 +124,7 @@ export class QuizComponent implements OnInit {
     this.quizService.getQuestionsAPI().subscribe(
       questions => {
         this.questions = questions.results;
+        this.questionsAmount = this.questions.length;
 
         let allAnswers: string[];
         const allQuestions = this.questions;
