@@ -1,3 +1,7 @@
+.is-centred {
+  text-align: center;
+}
+
 .form__label {
   display: block;
   margin: 0 0 5px 0;
