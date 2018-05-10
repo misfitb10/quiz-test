@@ -136,7 +136,8 @@ export class QuizComponent implements OnInit {
           i.allAnswers = allAnswers;
         }
       },
-      error => this.error = error
+      error => this.error = error,
+      () => this.countDownTimer(true)
     );
   }
 
@@ -169,7 +170,6 @@ export class QuizComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.countDownTimer(false);
     this.getQuestions();
   }
 }
