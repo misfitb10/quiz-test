@@ -7,16 +7,16 @@ import {ApiConfig} from '../models/apiConfig';
 
 @Injectable()
 export class QuizService {
-  apiUrl = 'https://opentdb.com/api.php?amount=3&category=21&type=multiple';
+  private _apiUrl = 'https://opentdb.com/api.php?amount=3&category=21&type=multiple';
 
-  constructor(private http: HttpClient) { }
+  constructor(private _http: HttpClient) { }
 
   getQuestionsAPI(): Observable<any> {
     if (isDevMode()) {
-      this.apiUrl = 'assets/api.json';
+      this._apiUrl = 'assets/api.json';
     }
 
-    return this.http.get<ApiConfig>(this.apiUrl).pipe(catchError(this._errorHandler));
+    return this._http.get<ApiConfig>(this._apiUrl).pipe(catchError(this._errorHandler));
   }
 
   private _errorHandler(error: HttpErrorResponse) {

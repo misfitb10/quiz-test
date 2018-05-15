@@ -8,16 +8,22 @@ import {Router} from '@angular/router';
 })
 
 export class ResultsComponent implements OnInit {
-  userData = localStorage.getItem('userData');
-  parsedData = JSON.parse(this.userData);
-  questionAnsweredAmount = this.parsedData.answered;
-  correctAnswers = this.parsedData.answers_correct;
-  incorrectAnswers = this.parsedData.answers_incorrect;
-  invalidAnswers = this.parsedData.answers_invalid;
-  perfectScore: boolean;
-  badScore: boolean;
-  percentageScore: number;
-  totalQuestions = 3;
+  private userData = localStorage.getItem('userData');
+  private parsedData = JSON.parse(this.userData);
+  private correctAnswers = this.parsedData.answers_correct;
+  private incorrectAnswers = this.parsedData.answers_incorrect;
+  private invalidAnswers = this.parsedData.answers_invalid;
+  private perfectScore: boolean;
+  private badScore: boolean;
+  private percentageScore: number;
+
+  // This needs to be dynamic, amigo! We have to fix this, because 3 is really final static-like
+  private totalQuestions = 3;
+
+  // Removes the userData key in Local Storage, thus removing all userData
+  static resetData(): void {
+    localStorage.removeItem('userData');
+  }
 
   constructor(private _router: Router) { }
 
@@ -25,7 +31,8 @@ export class ResultsComponent implements OnInit {
     this.calculateScore();
   }
 
-  calculateScore() {
+  // Calculates score based on correct answers
+  private calculateScore() {
     if (this.correctAnswers === 3) {
       this.perfectScore = true;
     } else if (this.correctAnswers < 2) {
@@ -33,13 +40,11 @@ export class ResultsComponent implements OnInit {
     }
 
     this.percentageScore = this.correctAnswers / this.totalQuestions * 100;
+    return this.percentageScore;
   }
 
-  resetData() {
-    localStorage.removeItem('userData');
-  }
-
-  secretShit(inputValue) {
+  // Can't tell you about this, sorry
+  private secretShit(inputValue): void {
     if (inputValue === 'RESET ALL') {
       localStorage.removeItem('userData');
       sessionStorage.removeItem('name');
@@ -47,8 +52,10 @@ export class ResultsComponent implements OnInit {
     }
   }
 
-  newQuiz(event) {
+  // Start a new quiz by resetting the data
+  private newQuiz(event): void {
     event.preventDefault();
-    this.resetData();
+    ResultsComponent.resetData();
+    this._router.navigate(['/quiz']);
   }
 }

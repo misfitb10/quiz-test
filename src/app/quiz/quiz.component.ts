@@ -11,33 +11,58 @@ import { take, map } from 'rxjs/operators';
 })
 
 export class QuizComponent implements OnInit {
-  nameQuizzer: string = sessionStorage.getItem('name') || null;
-  questions: any[];
-  questionsAmount: number;
-  answerChecked: boolean;
-  answers: {};
-  questionsLeft = this.questionsAmount;
+  private nameQuizzer: string = sessionStorage.getItem('name') || null;
+  private questions: any[];
+  private questionsAmount: number;
+  private answerChecked: boolean;
+  private answers: {};
+  private questionsLeft = this.questionsAmount;
 
   // User data stuff
-  userData = {};
-  answeredAmount = 0;
-  userAnswers = [];
-  userAnswerValue: string;
-  correctAnswers = [];
-  correctAnswer: string;
-  correctAnswersAmount = 0;
-  incorrectAnswersAmount = 0;
-  invalidAnswersAmount = 0;
+  private userData = {};
+  private answeredAmount = 0;
+  private userAnswers = [];
+  private userAnswerValue: string;
+  private correctAnswers = [];
+  private correctAnswer: string;
+  private correctAnswersAmount = 0;
+  private incorrectAnswersAmount = 0;
+  private invalidAnswersAmount = 0;
 
   // Error
-  error = null;
+  private error = null;
 
   // Time stuff
-  countDown;
-  initialCount = 30;
-  count = this.initialCount;
+  private countDown;
+  private initialCount = 30;
+  private count = this.initialCount;
 
-  constructor(private quizService: QuizService) {}
+  // TODO: Make a helper function/polyfill for this
+  static shuffle(array) {
+    let counter = array.length;
+
+    // While there are elements in the array
+    while (counter > 0) {
+      // Pick a random index
+      const index = Math.floor(Math.random() * counter);
+
+      // Decrease counter by 1
+      counter--;
+
+      // And swap the last element with it
+      const temp = array[counter];
+      array[counter] = array[index];
+      array[index] = temp;
+    }
+
+    return array;
+  }
+
+  constructor(private _quizService: QuizService) {}
+
+  ngOnInit() {
+    this.getQuestions();
+  }
 
   countDownTimer(reset) {
     if (reset) { this.count = this.initialCount; }
@@ -116,24 +141,24 @@ export class QuizComponent implements OnInit {
     this.saveAnswer();
   }
 
-  saveAnswer() {
+  private saveAnswer(): void {
     localStorage.setItem('userData', JSON.stringify(this.userData));
   }
 
-  getQuestions() {
-    this.quizService.getQuestionsAPI().subscribe(
+  private getQuestions() {
+    this._quizService.getQuestionsAPI().subscribe(
       questions => {
         this.questions = questions.results;
         this.questionsAmount = this.questions.length;
 
         let allAnswers: string[];
         const allQuestions = this.questions;
-        for (const i of allQuestions) {
-          this.correctAnswers = [i.correct_answer];
-          const incorrectAnswers = i.incorrect_answers;
-          allAnswers = this.shuffle([...this.correctAnswers, ...incorrectAnswers]);
+        for (const question of allQuestions) {
+          this.correctAnswers = [question.correct_answer];
+          const incorrectAnswers = question.incorrect_answers;
+          allAnswers = QuizComponent.shuffle([...this.correctAnswers, ...incorrectAnswers]);
           this.answers = {'allAnswers': allAnswers};
-          i.allAnswers = allAnswers;
+          question.allAnswers = allAnswers;
         }
       },
       error => this.error = error,
@@ -141,35 +166,10 @@ export class QuizComponent implements OnInit {
     );
   }
 
-  showResults(event, answer) {
+  private showResults(event, answer) {
     event.preventDefault();
 
     this.checkAnswer(answer);
     console.log('this.userData', this.userData);
-  }
-
-  // TODO: Make a helper function/polyfill for this
-  shuffle(array) {
-    let counter = array.length;
-
-    // While there are elements in the array
-    while (counter > 0) {
-      // Pick a random index
-      const index = Math.floor(Math.random() * counter);
-
-      // Decrease counter by 1
-      counter--;
-
-      // And swap the last element with it
-      const temp = array[counter];
-      array[counter] = array[index];
-      array[index] = temp;
-    }
-
-    return array;
-  }
-
-  ngOnInit() {
-    this.getQuestions();
   }
 }

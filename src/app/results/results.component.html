@@ -26,16 +26,15 @@
         <img class="resultImage" alt="crying because the score is SO low" src="https://i.giphy.com/k61nOBRRBMxva.gif" />
       </ng-container>
 
-      <br/>
-
       <footer>
         <p>Relax, just take another shot at it ok?</p>
-        <a href="#" class="btn btn--startQuiz" (click)="newQuiz($event)" routerLink="/quiz">start new quiz »</a>
+        <a href="#" class="btn btn--startQuiz" (click)="newQuiz($event)">start new quiz »</a>
       </footer>
     </article>
   </section>
 
   <aside class="sssssht">
-    <input class="secretShit" #secretshit type="text" /> <button (click)="secretShit(secretshit.value)">Sssssht</button>
+    <label id="shhhhhhht">shhhhhhht</label>
+    <input for="shhhhhhht" class="secretShit" #secretshit type="text" /> <button (click)="secretShit(secretshit.value)">Sssssht</button>
   </aside>
 </div>
