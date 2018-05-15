@@ -5,29 +5,28 @@
       <p>
         {{percentageScore | number: '1.0-0'}}% correct
         <br/>
-          <ng-container *ngIf="correctAnswers">Correct answers: {{correctAnswers}} <br/></ng-container>
-          <ng-container *ngIf="incorrectAnswers">Incorrect answers: {{incorrectAnswers}} <br/></ng-container>
-          <ng-container *ngIf="invalidAnswers">Invalid answers*: {{invalidAnswers}}</ng-container>
+          <ng-container *ngIf="parsedData?.answers_correct">Correct answers: {{parsedData?.answers_correct}} <br/></ng-container>
+          <ng-container *ngIf="parsedData?.answers_incorrect">Incorrect answers: {{parsedData?.answers_incorrect}} <br/></ng-container>
+          <ng-container *ngIf="parsedData?.answers_invalid">Invalid answers*: {{parsedData?.answers_invalid}}</ng-container>
       </p>
 
-      <ng-container *ngIf="invalidAnswers">
-        <p>*Invalid answers are answers which you haven't answered.</p>
+      <ng-container *ngIf="parsedData?.answers_invalid">
+        <p>*Invalid answers are answers which you haven't answered on time.</p>
       </ng-container>
 
-      <ng-container *ngIf="perfectScore">
-        <br/>
-        <p>Your score is so perfect, you should</p>
-        <img class="resultImage" alt="oh yeah baby" src="https://media.giphy.com/media/YEaQWIJRg6dTa/giphy.gif" />
+      <ng-container *ngIf="score === 100; else notPerfectScore">
+        <p>OMG, your score is so perfect</p>
+        <img class="resultsImage" alt="oh yeah baby" src="https://media.giphy.com/media/YEaQWIJRg6dTa/giphy.gif" />
       </ng-container>
 
-      <ng-container *ngIf="badScore">
-        <br/>
-        <p>God damn, your score is so bad, you really should just...</p>
-        <img class="resultImage" alt="crying because the score is SO low" src="https://i.giphy.com/k61nOBRRBMxva.gif" />
-      </ng-container>
+      <ng-template #notPerfectScore>
+        <p>Hey man, we need to get to that perfect score.</p>
+        <p>Just take another shot at it ok?</p>
+      </ng-template>
 
-      <footer>
-        <p>Relax, just take another shot at it ok?</p>
+
+      <footer class="resultsFooter">
+        <p>Let's do another one!</p>
         <a href="#" class="btn btn--startQuiz" (click)="newQuiz($event)">start new quiz »</a>
       </footer>
     </article>

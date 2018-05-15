@@ -10,11 +10,7 @@ import {Router} from '@angular/router';
 export class ResultsComponent implements OnInit {
   private userData = localStorage.getItem('userData');
   private parsedData = JSON.parse(this.userData);
-  private correctAnswers = this.parsedData.answers_correct;
-  private incorrectAnswers = this.parsedData.answers_incorrect;
-  private invalidAnswers = this.parsedData.answers_invalid;
-  private perfectScore: boolean;
-  private badScore: boolean;
+  private score: number;
   private percentageScore: number;
 
   // This needs to be dynamic, amigo! We have to fix this, because 3 is really final static-like
@@ -33,13 +29,8 @@ export class ResultsComponent implements OnInit {
 
   // Calculates score based on correct answers
   private calculateScore() {
-    if (this.correctAnswers === 3) {
-      this.perfectScore = true;
-    } else if (this.correctAnswers < 2) {
-      this.badScore = true;
-    }
-
-    this.percentageScore = this.correctAnswers / this.totalQuestions * 100;
+    this.parsedData.answers_correct === 3 ? this.score = 100 : this.score = 50;
+    this.percentageScore = this.parsedData.answers_correct / this.totalQuestions * 100;
     return this.percentageScore;
   }
 
