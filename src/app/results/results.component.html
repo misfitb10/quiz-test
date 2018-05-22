@@ -14,18 +14,17 @@
         <p>*Invalid answers are answers which you haven't answered on time.</p>
       </ng-container>
 
-      <ng-container *ngIf="perfectScore">
-        <p>Your score is so perfect, you should</p>
-        <img class="resultImage" alt="oh yeah baby" src="https://media.giphy.com/media/YEaQWIJRg6dTa/giphy.gif" />
+      <ng-container *ngIf="score === 100; else notPerfectScore">
+        <p>OMG, your score is so perfect</p>
+        <img class="resultsImage" alt="oh yeah baby" src="https://media.giphy.com/media/YEaQWIJRg6dTa/giphy.gif" />
       </ng-container>
 
-      <ng-container *ngIf="badScore">
-        <p>God damn, your score is so bad, you really should just...</p>
-        <img class="resultImage" alt="crying because the score is SO low" src="https://i.giphy.com/k61nOBRRBMxva.gif" />
-      </ng-container>
+      <ng-template #notPerfectScore>
+        <p>Hey man, we need to get to that perfect score.</p>
+        <p>Just take another shot at it ok?</p>
+      </ng-template>
 
       <footer class="resultsFooter">
-        <p *ngIf="badScore">Relax, just take another shot at it ok?</p>
         <a href="#" class="btn btn--startQuiz" (click)="newQuiz($event)" routerLink="/quiz">start new quiz »</a>
       </footer>
     </article>
