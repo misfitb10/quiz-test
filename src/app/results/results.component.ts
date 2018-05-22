@@ -8,13 +8,13 @@ import {Router} from '@angular/router';
 })
 
 export class ResultsComponent implements OnInit {
-  private userData = localStorage.getItem('userData');
-  private parsedData = JSON.parse(this.userData);
-  private score: number;
-  private percentageScore: number;
+  public userData = localStorage.getItem('userData');
+  public parsedData = JSON.parse(this.userData);
+  public score: number;
+  public percentageScore: number;
 
   // This needs to be dynamic, amigo! We have to fix this, because 3 is really final static-like
-  private totalQuestions = 3;
+  public totalQuestions = 3;
 
   // Removes the userData key in Local Storage, thus removing all userData
   static resetData(): void {
@@ -35,7 +35,7 @@ export class ResultsComponent implements OnInit {
   }
 
   // Can't tell you about this, sorry
-  private secretShit(inputValue): void {
+  public secretShit(inputValue): void {
     if (inputValue === 'RESET ALL') {
       localStorage.removeItem('userData');
       sessionStorage.removeItem('name');
@@ -44,7 +44,7 @@ export class ResultsComponent implements OnInit {
   }
 
   // Start a new quiz by resetting the data
-  private newQuiz(event): void {
+  public newQuiz(event): void {
     event.preventDefault();
     ResultsComponent.resetData();
     this._router.navigate(['/quiz']);

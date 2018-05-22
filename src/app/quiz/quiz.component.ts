@@ -11,31 +11,31 @@ import { take, map } from 'rxjs/operators';
 })
 
 export class QuizComponent implements OnInit {
-  private nameQuizzer: string = sessionStorage.getItem('name') || null;
-  private questions: any[];
-  private questionsAmount: number;
-  private answerChecked: boolean;
-  private answers: {};
-  private questionsLeft = this.questionsAmount;
+  public nameQuizzer: string = sessionStorage.getItem('name') || null;
+  public questions: any[];
+  public questionsAmount: number;
+  public answerChecked: boolean;
+  public answers: {};
+  public questionsLeft = this.questionsAmount;
 
   // User data stuff
-  private userData = {};
-  private answeredAmount = 0;
-  private userAnswers = [];
-  private userAnswerValue: string;
-  private correctAnswers = [];
-  private correctAnswer: string;
-  private correctAnswersAmount = 0;
-  private incorrectAnswersAmount = 0;
-  private invalidAnswersAmount = 0;
+  public userData = {};
+  public answeredAmount = 0;
+  public userAnswers = [];
+  public userAnswerValue: string;
+  public correctAnswers = [];
+  public correctAnswer: string;
+  public correctAnswersAmount = 0;
+  public incorrectAnswersAmount = 0;
+  public invalidAnswersAmount = 0;
 
   // Error
-  private error = null;
+  public error = null;
 
   // Time stuff
-  private countDown;
-  private initialCount = 30;
-  private count = this.initialCount;
+  public countDown;
+  public initialCount = 30;
+  public count = this.initialCount;
 
   // TODO: Make a helper function/polyfill for this
   static shuffle(array) {
@@ -64,7 +64,7 @@ export class QuizComponent implements OnInit {
     this.getQuestions();
   }
 
-  countDownTimer(reset) {
+  countDownTimer(reset): void {
     if (reset) { this.count = this.initialCount; }
 
     this.countDown = timer(0, 1000).pipe(
@@ -73,7 +73,7 @@ export class QuizComponent implements OnInit {
     );
   }
 
-  nextQuestion(event, answer) {
+  nextQuestion(event, answer): void {
     event.preventDefault();
 
     // Reset time
@@ -99,13 +99,13 @@ export class QuizComponent implements OnInit {
     console.log('this.userData', this.userData);
   }
 
-  changedCheckbox(event, correctAnswer) {
+  changedCheckbox(event, correctAnswer): void {
     this.userAnswerValue = event.target.value;
     this.answerChecked = event.target.checked;
     this.correctAnswer = correctAnswer;
   }
 
-  checkAnswer(answer) {
+  checkAnswer(answer): void {
     // If checkbox is checked
     if (this.answerChecked) {
       answer === this.correctAnswer ? ++this.correctAnswersAmount : ++this.incorrectAnswersAmount;
@@ -145,7 +145,7 @@ export class QuizComponent implements OnInit {
     localStorage.setItem('userData', JSON.stringify(this.userData));
   }
 
-  private getQuestions() {
+  private getQuestions(): void {
     this._quizService.getQuestionsAPI().subscribe(
       questions => {
         this.questions = questions.results;
@@ -166,7 +166,7 @@ export class QuizComponent implements OnInit {
     );
   }
 
-  private showResults(event, answer) {
+  private showResults(event, answer): void {
     event.preventDefault();
 
     this.checkAnswer(answer);
