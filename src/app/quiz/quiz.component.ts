@@ -11,12 +11,14 @@ import { take, map } from 'rxjs/operators';
 })
 
 export class QuizComponent implements OnInit {
+  public title = 'Sports quiz!';
   public nameQuizzer: string = sessionStorage.getItem('name') || null;
   public questions: any[];
   public questionsAmount: number;
   public answerChecked: boolean;
   public answers: {};
   public questionsLeft = this.questionsAmount;
+  public currentQuestionNumber = 1;
 
   // User data stuff
   public userData = {};
@@ -57,6 +59,7 @@ export class QuizComponent implements OnInit {
 
     return array;
   }
+
 
   constructor(private _quizService: QuizService) {}
 
@@ -99,13 +102,13 @@ export class QuizComponent implements OnInit {
     console.log('this.userData', this.userData);
   }
 
-  changedCheckbox(event, correctAnswer): void {
+  public changedCheckbox(event, correctAnswer): void {
     this.userAnswerValue = event.target.value;
     this.answerChecked = event.target.checked;
     this.correctAnswer = correctAnswer;
   }
 
-  checkAnswer(answer): void {
+  public checkAnswer(answer): void {
     // If checkbox is checked
     if (this.answerChecked) {
       answer === this.correctAnswer ? ++this.correctAnswersAmount : ++this.incorrectAnswersAmount;
@@ -137,15 +140,18 @@ export class QuizComponent implements OnInit {
     // One more question lesser, because the question is now answered
     this.questionsLeft--;
 
+    // One more question added to the current question
+    this.currentQuestionNumber++;
+
     // Save answer data
     this.saveAnswer();
   }
 
-  private saveAnswer(): void {
+  public saveAnswer(): void {
     localStorage.setItem('userData', JSON.stringify(this.userData));
   }
 
-  private getQuestions(): void {
+  public getQuestions(): void {
     this._quizService.getQuestionsAPI().subscribe(
       questions => {
         this.questions = questions.results;
@@ -166,7 +172,7 @@ export class QuizComponent implements OnInit {
     );
   }
 
-  private showResults(event, answer): void {
+  public showResults(event, answer): void {
     event.preventDefault();
 
     this.checkAnswer(answer);

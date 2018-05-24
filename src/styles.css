@@ -39,3 +39,86 @@ p {
 .txt-centered {
   text-align: center;
 }
+
+
+
+
+
+/***********************************/
+/* -------- REFACTOR THIS -------- */
+/***********************************/
+.questions {
+  position: relative;
+}
+
+.hidden {
+  display: none;
+}
+
+.timer {
+  font-size: 12px;
+  background-color: #000;
+  color: #fff;
+  position: absolute;
+  right: -65px;
+  margin: 0 0 10px 0;
+  padding: 10px;
+}
+
+.timer.warning {
+  background-color: red;
+}
+
+.labels {
+  margin: 0 0 15px 0;
+}
+
+.label {
+  display: inline-block;
+  padding: 3px 5px;
+  font-size: 11px;
+  color: #000;
+}
+
+.label--category {
+  background-color: rgb(230, 222, 252);
+}
+
+.label--difficulty {
+  background-color: rgb(252, 222, 222);
+}
+
+.questionsAmount {
+  margin: 0 0 5px 0;
+  color: #848383;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+ul.answersList {
+  list-style-type: none;
+  margin: 20px 0 20px 15px;
+  padding: 0;
+}
+
+.btn--nextQuestion {
+  background-color: #007600;
+}
+
+.no {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-height: 30px;
+  min-width: 30px;
+  background-color: red;
+}
+
+.noShow {
+  display: none;
+}
+
+.showResults {
+  background-color: #fefae9;
+  padding: 10px;
+}
