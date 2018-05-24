@@ -1,0 +1,14 @@
+<ul class="answersList">
+  <ng-container *ngFor="let answer of question.allAnswers; let x = index">
+    <li>
+      <input  [disabled]="answerChecked || count === 0 ? 'true' : null"
+              type="checkbox"
+              id="answer{{answer | slice:1:3}}{{x}}"
+              class="answer__input"
+              #answerinput
+              (change)="changedCheckbox($event, question.correct_answer)"
+              value="{{answer}}" />
+      <label for="answer{{answer | slice:1:3}}{{x}}" [innerHTML]="answer"></label>
+    </li>
+  </ng-container>
+</ul>

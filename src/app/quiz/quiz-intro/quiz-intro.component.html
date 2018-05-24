@@ -1,0 +1,13 @@
+<!-- Intro text -->
+<section class="intro">
+  <p>
+    <strong>
+      Hola<ng-container *ngIf="nameQuizzer"> {{nameQuizzer}}</ng-container>!
+
+      <ng-container *ngIf="questionsAmount > 0">
+        You just need to answer {{questionsAmount}} question<ng-container *ngIf="questionsAmount > 1">s</ng-container>, ok? <br/>
+        You only get ONE SHOT at answering!
+      </ng-container>
+    </strong>
+  </p>
+</section>

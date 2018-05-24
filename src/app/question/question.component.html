@@ -1,0 +1,43 @@
+<ng-container *ngIf="questionsAmount > 0">
+  <section class="questions">
+    <!--<div class="timer" [ngClass]="{'warning': (count <= 10)}">Time left: <span class="time-left">{{countDown | async}}</span> sec</div>-->
+    <app-countdown [countDown]="countDown" [initialCount]="initialCount" [count]="count"></app-countdown>
+
+    <article *ngFor="let question of questions; let i = index; let firstItem = first; let lastItem = last"
+             [class.question--first]="firstItem"
+             [class.question--last]="lastItem"
+             [ngClass]="{'hidden': (i !== 0)}"
+             class="question">
+
+      <app-question-label [question]="question"></app-question-label>
+
+      <app-question-amount [currentQuestionNumber]="currentQuestionNumber" [questionsAmount]="questionsAmount"></app-question-amount>
+
+      <app-question-asked [question]="question"></app-question-asked>
+
+      <app-answers [question]="question"></app-answers>
+
+      <!--
+      We can do this later, not necessary for now
+      <ng-container *ngIf="answerChecked && userAnswerValue === question.correct_answer && count === 0">
+        <p>&#10003; CORRECT. BAM!</p>
+      </ng-container>
+
+      <ng-container *ngIf="answerChecked && userAnswerValue !== question.correct_answer && count === 0">
+        <p>&#10006; INCORRECT. WRONG!</p>
+      </ng-container>
+      -->
+
+      <!--<ng-container *ngIf="answerChecked && !lastItem || !lastItem && count === 0">-->
+        <!--<a href="#" class="btn btn&#45;&#45;nextQuestion" (click)="nextQuestion($event, userAnswerValue)">Next »</a>-->
+      <!--</ng-container>-->
+
+      <!--<ng-container *ngIf="answerChecked && lastItem || lastItem && count == 0">-->
+        <!--<div class="showResults txt-centered">-->
+          <!--<p>Hey man, you've made it. Let's see the results.</p>-->
+          <!--<a href="#" class="btn" (click)="showResults($event, userAnswerValue)" routerLink="/results">Show results</a>-->
+        <!--</div>-->
+      <!--</ng-container>-->
+    </article>
+  </section>
+</ng-container>
