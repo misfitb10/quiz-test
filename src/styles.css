@@ -80,11 +80,11 @@ p {
   color: #000;
 }
 
-.label--category {
+.label__category {
   background-color: rgb(230, 222, 252);
 }
 
-.label--difficulty {
+.label__difficulty {
   background-color: rgb(252, 222, 222);
 }
 
@@ -101,7 +101,7 @@ ul.answersList {
   padding: 0;
 }
 
-.btn--nextQuestion {
+.btn__nextQuestion {
   background-color: #007600;
 }
 

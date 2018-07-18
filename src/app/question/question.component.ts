@@ -7,16 +7,16 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class QuestionComponent implements OnInit {
 
-  @Input() questions;
-  @Input() questionsAmount;
-  @Input() answerChecked;
-  @Input() answers;
-  @Input() questionsLeft;
-  @Input() currentQuestionNumber;
+  @Input() public questions;
+  @Input() public questionsAmount;
+  @Input() public answerChecked;
+  @Input() public answers;
+  @Input() public questionsLeft;
+  @Input() public currentQuestionNumber;
 
-  @Input() countDown;
-  @Input() initialCount;
-  @Input() count;
+  @Input() public countDown;
+  @Input() public initialCount;
+  @Input() public count;
 
   constructor() { }
 

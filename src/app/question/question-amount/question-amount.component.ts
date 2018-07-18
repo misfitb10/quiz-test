@@ -11,7 +11,5 @@ export class QuestionAmountComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-  }
-
+  ngOnInit() { }
 }

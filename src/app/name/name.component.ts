@@ -8,14 +8,26 @@ import { Component, OnInit } from '@angular/core';
 
 export class NameComponent implements OnInit {
   nameQuizzer: string = sessionStorage.getItem('name') || '';
+  nameIsFilled: boolean;
 
   constructor() { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.nameFilled();
+  }
 
   submitName(name) {
     if (name !== '') {
       sessionStorage.setItem('name', name);
+      this.nameIsFilled = true;
+    }
+  }
+
+  nameFilled() {
+    if (this.nameQuizzer.length === 0) {
+      this.nameIsFilled = false;
+    } else {
+      this.nameIsFilled = true;
     }
   }
 }
